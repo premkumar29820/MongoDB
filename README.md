@@ -10,9 +10,7 @@ A beginner-friendly MongoDB project created to practice database operations and 
 - Update single and multiple documents
 - Delete single and multiple documents
 - Practice MongoDB query operators
-- REST API using Express.js
 - MongoDB integration using Mongoose
-- React frontend
 
 ## Technologies Used
 - MongoDB
