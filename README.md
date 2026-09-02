@@ -38,6 +38,6 @@ A beginner-friendly MongoDB project created to practice database operations and 
 - `$or` – Match either condition
 - `$exists` – Check whether a field exists
 
-#Learning Outcome
+# Learning Outcome
 
 This project helped me understand MongoDB fundamentals, CRUD operations, query operators, Mongoose, Express.js APIs, and React-to-backend integration.
