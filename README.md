@@ -1,4 +1,4 @@
-# MongoDB Student Management System
+# MongoDB Student Management System 
 
 A beginner-friendly MongoDB project created to practice database operations and understand how MongoDB can be integrated with a full-stack application.
 
@@ -29,7 +29,7 @@ A beginner-friendly MongoDB project created to practice database operations and 
 - `deleteOne()`
 - `deleteMany()`
 
-### Query Operators
+###  Query Operators
 
 - `$gt` – Greater than
 - `$lt` – Less than
