@@ -1,0 +1,129 @@
+studentDB> use libraryDB
+switched to db libraryDB
+libraryDB> db.books.insertMany([
+|   { title: "Clean Code", author: "Robert C. Martin", genre: "Programming", copies: 3, borrowed: 1 },
+|   { title: "Atomic Habits", author: "James Clear", genre: "Self-help", copies: 5, borrowed: 5 },
+|   { title: "The Alchemist", author: "Paulo Coelho", genre: "Fiction", copies: 4, borrowed: 0 },
+|   { title: "You Don't Know JS", author: "Kyle Simpson", genre: "Programming", copies: 2, borrowed: 2 }
+| ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6a980135af834bdac9c17e0d'),
+    '1': ObjectId('6a980135af834bdac9c17e0e'),
+    '2': ObjectId('6a980135af834bdac9c17e0f'),
+    '3': ObjectId('6a980135af834bdac9c17e10')
+  }
+}
+libraryDB> db.books.find({ genre: "Programming" })
+|
+[
+  {
+    _id: ObjectId('6a980135af834bdac9c17e0d'),
+    title: 'Clean Code',
+    author: 'Robert C. Martin',
+    genre: 'Programming',
+    copies: 3,
+    borrowed: 1
+  },
+  {
+    _id: ObjectId('6a980135af834bdac9c17e10'),
+    title: "You Don't Know JS",
+    author: 'Kyle Simpson',
+    genre: 'Programming',
+    copies: 2,
+    borrowed: 2
+  }
+]
+libraryDB> db.books.find({ $expr: { $eq: ["$borrowed", "$copies"] } })
+[
+  {
+    _id: ObjectId('6a980135af834bdac9c17e0e'),
+    title: 'Atomic Habits',
+    author: 'James Clear',
+    genre: 'Self-help',
+    copies: 5,
+    borrowed: 5
+  },
+  {
+    _id: ObjectId('6a980135af834bdac9c17e10'),
+    title: "You Don't Know JS",
+    author: 'Kyle Simpson',
+    genre: 'Programming',
+    copies: 2,
+    borrowed: 2
+  }
+]
+libraryDB> db.books.find({ copies: { $gt: 3 } })
+|
+[
+  {
+    _id: ObjectId('6a980135af834bdac9c17e0e'),
+    title: 'Atomic Habits',
+    author: 'James Clear',
+    genre: 'Self-help',
+    copies: 5,
+    borrowed: 5
+  },
+  {
+    _id: ObjectId('6a980135af834bdac9c17e0f'),
+    title: 'The Alchemist',
+    author: 'Paulo Coelho',
+    genre: 'Fiction',
+    copies: 4,
+    borrowed: 0
+  }
+]
+
+
+libraryDB> db.books.updateOne(
+|   { title: "Atomic Habits" },
+|   { $inc: { borrowed: -1 } })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+libraryDB> db.books.updateMany(
+|   { genre: "Programming", $expr: { $eq: ["$borrowed", "$copies"] } },
+|   { $set: { demand: "high" } }
+| )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+libraryDB> db.books.deleteOne({ title: "The Alchemist" })
+{ acknowledged: true, deletedCount: 1 }
+libraryDB> db.books.find()
+[
+  {
+    _id: ObjectId('6a980135af834bdac9c17e0d'),
+    title: 'Clean Code',
+    author: 'Robert C. Martin',
+    genre: 'Programming',
+    copies: 3,
+    borrowed: 1
+  },
+  {
+    _id: ObjectId('6a980135af834bdac9c17e0e'),
+    title: 'Atomic Habits',
+    author: 'James Clear',
+    genre: 'Self-help',
+    copies: 5,
+    borrowed: 4
+  },
+  {
+    _id: ObjectId('6a980135af834bdac9c17e10'),
+    title: "You Don't Know JS",
+    author: 'Kyle Simpson',
+    genre: 'Programming',
+    copies: 2,
+    borrowed: 2,
+    demand: 'high'
+  }
+]
